@@ -1,0 +1,12 @@
+{
+    "version": "1",
+    "disableAutoUpdate": false,
+    "name": "Boss True Resistance",
+    "author": "Kygas",
+    "description": "Show true resistance of bosses to you.",
+    "options": {
+        "niceName": "BTR",
+        "guiName": "Boss True Resistance"
+    },
+    "servers": ["https://raw.githubusercontent.com/KYGAS/Resistance-Tracker/master/"]
+}
