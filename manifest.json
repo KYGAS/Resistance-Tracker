@@ -1,14 +1,9 @@
 {
-    "files": {
-        "Opcodes.txt": "664a0373a43ee52486e592e38d861dc92dddcedf8910f2338cf9b2cceebfaa65",
-        "README.MD": "5d651e3a8c8f1ee3601761cf34478d1f6ce1b6d179b8c3538705530b2da376d7",
-        "S_NPC_RESISTANCE.1.def": "6ffe0e0b86e04a6f94662ba43f8787f1ef3f7ad7414f49428db21d107843b108",
-        "index.js": "4f2a81569a0b87c3bdd262bb03a7d97f4124da6c91241500ae46166177e24648",
-        "module.json": "a2817694540003a3ea436357f14583c3c054ee47cc8978cfa5af1727f8a9306c"
-    },
-    "defs": {
-        "S_LOAD_TOPO": "raw",
-        "S_NPC_RESISTANCE": [1,38899],
-        "S_PLAYER_STAT_UPDATE": 17
-    }
+  "files": {
+    "Opcodes.txt": "65d23bbece181225e0d879b6481d36dfd8137be06a9db8091fee36a17204bef3",
+    "README.MD": "5d651e3a8c8f1ee3601761cf34478d1f6ce1b6d179b8c3538705530b2da376d7",
+    "S_NPC_RESISTANCE.1.def": "046a03c45ba91df9cffc485174c3484642f705ba5dc29ffd33bd755d37199516",
+    "index.js": "0e5ce64cf5ffec049afdd65fee4c6257ad6db822eb8c5759e03c90c93df7a04e",
+    "module.json": "ae5c2a62892f3c1418575fbe893613d0dfaf0978527d43358e51456a022fb1da"
+  }
 }
