@@ -2,8 +2,9 @@
 Lets you see true resistance of bosses against you.
 
 ## Info
-- You have to manually add the opcodes and the definition to their places in Toolbox.
-- They are server opcode and definition so you are 100% safe as long as you don't stream or record videos since this change is visible to people that can do math.
+- Uses a self-mapped opcode and def which are 100% safe as long as you don't share screen/stream to monkeys that will report you because your resistances don't match server values.
+- You are 100% safe from being detected from server if you use prediction mode.
+- Accurate mode is 99.99% safe. It's a valid packet, that user can proc vanilla without toolbox by mouse-hovering the abnormality below the boss'es HP bar. The packet is whitelisted by the Toolbox community and not abusable for anything.
 
 ## Usage
 
