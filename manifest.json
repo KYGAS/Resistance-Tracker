@@ -1,11 +1,10 @@
 {
     "files": {
-        "Opcodes.txt": "664a0373a43ee52486e592e38d861dc92dddcedf8910f2338cf9b2cceebfaa65",
-        "README.MD": "04ac0c336ab05ecd5f66860214c2f6d6b8b0490ee53741035f5f7799fbf378d5",
+        "README.MD": "e87cf370d3d07faba832831e2b079db70e94807650a68d9001a93e5e10f69d74",
         "S_NPC_RESISTANCE.1.def": "6ffe0e0b86e04a6f94662ba43f8787f1ef3f7ad7414f49428db21d107843b108",
-        "index.js": "53e05e146ffbefc67d9ca02486632e81ff4f351367db1f289e86690bc72f2c03",
-        "module.json": "5d730c94de99b172d95b2436e51a378dc8047ef84165957e616871a7200783e5",
-        "settings_migrator.js": "53a1ab6ad9a024cc4ec7669f73c0bf1972d704dea5104492600e093386d4c027"
+        "index.js": "f511e46b3017a48e81515094716286b8a389538dcaf54a074f2a187516a306f0",
+        "module.json": "e2a52f8037278aa6ba7a5654adc602f2be8d5a3f7e3053e0d6a3b52df90f93c4",
+        "settings_migrator.js": "6c2754f4ee025142d8ee06494e2aba1f3c29bdb15fb79345eea630eeeeb8c3ae"
     },
     "defs": {
         "C_REQUEST_ABNORMALITY_TOOLTIP_VALUE": 1,
@@ -13,6 +12,7 @@
         "S_ABNORMALITY_END": 1,
         "S_ABNORMALITY_REFRESH": 2,
         "S_ABNORMALITY_TOOLTIP_VALUE": 1,
+        "S_BOSS_GAGE_INFO": 3,
         "S_LOAD_TOPO": "raw",
         "S_NPC_RESISTANCE": [1,38899],
         "S_PLAYER_STAT_UPDATE": 17

@@ -18,6 +18,7 @@ const DefaultSettings = {
 				* 100% detection proof and safe ( unless you stream where people can see that your resistance numbers are modified )
 				* will happen if someone spoonfeeds me data 
 	*/
+	"minThrottle" : 20000
 }
 
 module.exports = function MigrateSettings(from_ver, to_ver, settings) {
@@ -41,6 +42,9 @@ module.exports = function MigrateSettings(from_ver, to_ver, settings) {
 		
         switch(to_ver)
         {
+			case 2:
+				settings.minThrottle = 20000;
+				break;
 			// keep old settings, add new ones
 			default:
 				let oldsettings = settings

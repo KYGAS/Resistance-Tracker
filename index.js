@@ -1,13 +1,125 @@
 module.exports = function Tracker(mod) {
 	
-	//-------------- mod stuff
-		mod.dispatch.addOpcode('S_NPC_RESISTANCE',   38899)
-		mod.dispatch.addDefinition('S_NPC_RESISTANCE', 1, [
-		  ['gameId', 'uint64'],
-		  ['physicalResistance', 'int32'],
-		  ['magicalResistance', 'int32']
-		], true)
-	//--------------
+//-------------- mod stuff
+	mod.dispatch.addOpcode('S_NPC_RESISTANCE',   38899)
+	mod.dispatch.addDefinition('S_NPC_RESISTANCE', 1, [
+	  ['gameId', 'uint64'],
+	  ['physicalResistance', 'int32'],
+	  ['magicalResistance', 'int32']
+	], true)
+	
+	let resistanceDC = {
+		3023 : {
+			1000 : {
+				physical : 60000,
+				magical : 60000
+			},
+			2000 : {
+				physical : 60000,
+				magical : 60000
+			}
+		},
+		811 : {
+			81101 : {
+				physical : 60000,
+				magical : 60000
+			},
+			81102 : {
+				physical : 60000,
+				magical : 60000
+			}
+		},
+		780 : {
+			1000 : {
+				physical : 70000,
+				magical : 70000
+			},
+			2000 : {
+				physical : 70000,
+				magical : 70000
+			},
+			3000 : {
+				physical : 70000,
+				magical : 70000
+			}
+		},
+		3102 : {
+			1000 : {
+				physical : 70000,
+				magical : 70000
+			}
+		},
+		3041 : {
+			2000 : {
+				physical : 90000,
+				magical : 90000
+			}
+		},
+		982 : {
+			1000 : {
+				physical : 78000,
+				magical : 78000
+			},
+			2000 : {
+				physical : 78000,
+				magical : 78000
+			},
+			3000 : {
+				physical : 78000,
+				magical : 78000
+			}
+		},
+		3105 : {
+			1000 : {
+				physical : 78000,
+				magical : 78000
+			}
+		},
+		3104 : {
+			1000 : {
+				physical : 90000,
+				magical : 90000
+			}
+		},
+		3044 : {
+			2000 : {
+				physical : 78000,
+				magical : 78000
+			}
+		},
+		444 : {
+			2000 : {
+				physical : 92500,
+				magical : 92500
+			}
+		},
+		3205 : {
+			1000 : {
+				physical : 92500,
+				magical : 92500
+			}
+		},
+		3036 : {
+			1000 : {
+				physical : 92500,
+				magical : 92500
+			}
+		},
+		3107 : {
+			1000 : {
+				physical : 90000,
+				magical : 90000
+			}
+		},
+		3126 : {
+			1000 : {
+				physical : 120000,
+				magical : 120000
+			}
+		}
+	}
+	
+//--------------
 	
 	
 	const command = mod.command;
@@ -15,39 +127,62 @@ module.exports = function Tracker(mod) {
 	let physicalPierce = 0, physicalIgnore = 0, physicalPercent = 0;
 	let abnormalModifiers = {};
 	let refreshCheck = {};
-	let predictedResistance = {};
+	let predictedResistance = {}, dcResistance = {};
+	let abnormThrottle = {};
+	let isBoss = [];
 	
-	command.add('resistances', (mode)=>{
-		if(!mode){
+	command.add('resistances', (arg1 ,val)=>{
+		
+		if(!arg1){
 			mod.settings.enabled = !mod.settings.enabled;
 			command.message('Showing True Resistance? ' + mod.settings.enabled);
 		}else{
-			switch(mode){
-				case '1':
-				case "accurate":
-					mod.settings.mode = 'accurate';
-					command.message("Using accurate mode for resistances.");
+			arg1 = arg1.toLowerCase();
+			val = val.toLowerCase();
+			switch(arg1){
+				case 'mode': 
+					switch(val){
+						case '1':
+						case "accurate":
+							mod.settings.mode = 'accurate';
+							command.message("Using accurate mode for resistances.");
+							break;
+						case '2':
+						case "prediction":
+							mod.settings.mode = 'prediciton';
+							command.message("Using prediciton mode for resistances.");
+							break;
+						case '3':
+						case "hardcoded":
+							console.log("Hardcoded mode used by default if possible. Switching to prediction mode.");
+							command.message("Hardcoded mode used by default if possible. Switching to prediction mode.");
+							command.exec('resistances mode predictiton');
+							break;
+						default:
+							command.message("Currently existing modes :");
+							command.message("1) Accurate");
+							command.message("2) Prediction");
+							command.message("3) Hardcoded");
+							break;
+					}
 					break;
-				case '2':
-				case "prediction":
-					mod.settings.mode = 'prediciton';
-					command.message("Using prediciton mode for resistances.");
-					break;
-				case '3':
-				case "hardcoded":
-					console.log("Hardcoded mode not supported. Switching to prediction mode.");
-					command.message("Hardcoded mode not supported. Switching to prediction mode.");
-					command.exec('resistances prediciton');
+				case 'delay':
+					mod.settings.minThrottle = parseInt(val)
+					console.log("Minimum delay before rechecking each abnorm set to ( miliseconds ) : " + mod.settings.minThrottle);
+					command.message("Minimum delay before rechecking each abnorm set to ( miliseconds ) : " + mod.settings.minThrottle);
 					break;
 				default:
-					command.message("Currently existing modes :");
-					command.message("1) Accurate");
-					command.message("2) Prediction");
-					command.message("3) Hardcoded");
+					command.message("Invalid argument:");
+					command.message("1) mode");
+					command.message("1) a) accurate ");
+					command.message("1) b) prediciton");
+					command.message("1) a) hardcoded");
+					command.message("2) delay VALUE");
 					break;
 			}
 		}
 	})
+	
 	
 	mod.hook('S_PLAYER_STAT_UPDATE', 17, {filter : { fake: null } }, (event) => {
 		
@@ -179,11 +314,15 @@ module.exports = function Tracker(mod) {
 				physicalResistance : 10000 * event.stacks
 			}
 		}
-		if(mod.settings.mode == 'accurate' && refreshCheck[event.id]){
-			mod.send('C_REQUEST_ABNORMALITY_TOOLTIP_VALUE', 1, {
-				gameId : event.target,
-				id : event.id
-			})
+		if(mod.settings.mode == 'accurate' && refreshCheck[event.id] && isBoss.includes(event.target) ){
+			
+			if(!abnormThrottle[event.id] || Date.now() - abnormThrottle[event.id] > mod.settings.minThrottle ){
+					mod.send('C_REQUEST_ABNORMALITY_TOOLTIP_VALUE', 1, {
+						gameId : event.target,
+						id : event.id
+					})
+					abnormThrottle[event.id] = Date.now();
+			}
 		}
 	})
 	
@@ -217,8 +356,16 @@ module.exports = function Tracker(mod) {
 		}
 	})
 	
+	mod.hook('S_BOSS_GAGE_INFO', 3, (event)=>{
+		if(resistanceDC[event.huntingZoneId])
+			if(resistanceDC[event.huntingZoneId][event.templateId]){
+				dcResistance[event.id] = resistanceDC[event.huntingZoneId][event.templateId]
+			}
+		isBoss.push(event.id)
+	})
+	
 	mod.hook('S_NPC_RESISTANCE', 1, {filter : { fake: null } }, (event)=>{
-		if(!mod.settings.enabled || mod.settings.mode != 'accurate') return;
+		if(!mod.settings.enabled || mod.settings.mode != 'accurate' || dcResistance[event.gameId]) return;
 		
 		let physicalResistance = event.physicalResistance;
 		let magicalResistance = event.magicalResistance;
@@ -240,7 +387,7 @@ module.exports = function Tracker(mod) {
 	})
 	
 	mod.hook('S_NPC_RESISTANCE', 1, {filter : { fake: null } }, (event)=>{
-		if(!mod.settings.enabled || mod.settings.mode != 'prediciton') return;
+		if(!mod.settings.enabled || mod.settings.mode != 'prediciton' || dcResistance[event.gameId]) return;
 		
 		let physicalResistance = event.physicalResistance;
 		let magicalResistance = event.magicalResistance;
@@ -262,6 +409,21 @@ module.exports = function Tracker(mod) {
 		
 		event.magicalResistance -= (predictedResistance[event.gameId].magicalResistance * Math.min(magicPercent, 0.8 ) + magicalIgnore)
 		event.physicalResistance -= (predictedResistance[event.gameId].physicalResistance * Math.min(physicalPercent, 0.8 ) + physicalIgnore)
+		
+		event.magicalResistance = Math.max(-33333, event.magicalResistance);
+		event.physicalResistance = Math.max(-33333, event.physicalResistance);
+		
+		return true;
+	})
+	
+	mod.hook('S_NPC_RESISTANCE', 1, {filter : { fake: null } }, (event)=>{
+		if(!mod.settings.enabled || !dcResistance[event.gameId]) return;
+		
+		let physicalResistance = dcResistance[event.gameId].physical;
+		let magicalResistance = dcResistance[event.gameId].magical;
+		
+		event.magicalResistance -= (magicalResistance * Math.min(magicPercent, 0.8 ) + magicalIgnore)
+		event.physicalResistance -= (physicalResistance * Math.min(physicalPercent, 0.8 ) + physicalIgnore)
 		
 		event.magicalResistance = Math.max(-33333, event.magicalResistance);
 		event.physicalResistance = Math.max(-33333, event.physicalResistance);
