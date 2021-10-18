@@ -12,7 +12,7 @@ Lets you see true resistance of bosses against you.
 - Enables/disables resistance-tracker
 - Default is on
 
-### `/8 resistances MODE`
+### `/8 resistances ARG MODE/VALUE`
 - Changes the mode of the resistance-tracker
 - Default is prediction
 	- Two working modes :
@@ -30,10 +30,15 @@ Lets you see true resistance of bosses against you.
 			- * 100% accurate
 			- * slow to update
 			- * 100% detection proof and safe ( unless you stream where people can see that your resistance numbers are modified )
-			- * will happen if someone spoonfeeds me data 
+			- * officially released - is used by default if the boss is supported ( thanks Taldek uwu )
+	- delay VALUE
+		- * Sets the minimum delay between sending C_ packets in accurate mode for precision
+		- * Default 20 seconds
+		- * Value is in miliseconds
 - Examples : 
- - `/8 resistances accurate`
- - `/8 resistances prediction`
+ - `/8 resistances mode prediction`
+ - `/8 resistances mode 1`
+ - `/8 resistances delay 20000`
  
 ## Issues
 - It's a very TESTABLE module. Idk if it works all the time. DM : KYGAS#8575 for bugs <3
