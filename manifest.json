@@ -2,9 +2,9 @@
     "files": {
         "README.MD": "e87cf370d3d07faba832831e2b079db70e94807650a68d9001a93e5e10f69d74",
         "S_NPC_RESISTANCE.1.def": "6ffe0e0b86e04a6f94662ba43f8787f1ef3f7ad7414f49428db21d107843b108",
-        "index.js": "f511e46b3017a48e81515094716286b8a389538dcaf54a074f2a187516a306f0",
+        "index.js": "a4e991e320db2a573376541225465addeba63b158584e3c86231a3d8c293dde3",
         "module.json": "e2a52f8037278aa6ba7a5654adc602f2be8d5a3f7e3053e0d6a3b52df90f93c4",
-        "settings_migrator.js": "6c2754f4ee025142d8ee06494e2aba1f3c29bdb15fb79345eea630eeeeb8c3ae"
+        "settings_migrator.js": "6c2754f4ee025142d8ee06494e2aba1f3c29bdb15fb79345eea630eeeeb8c3ae",
     },
     "defs": {
         "C_REQUEST_ABNORMALITY_TOOLTIP_VALUE": 1,
@@ -14,7 +14,7 @@
         "S_ABNORMALITY_TOOLTIP_VALUE": 1,
         "S_BOSS_GAGE_INFO": 3,
         "S_LOAD_TOPO": "raw",
-        "S_NPC_RESISTANCE": [1,38899],
+        "S_NPC_RESISTANCE": [1,20354],
         "S_PLAYER_STAT_UPDATE": 17
     }
 }
