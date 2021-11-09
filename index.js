@@ -116,6 +116,28 @@ module.exports = function Tracker(mod) {
 				physical : 120000,
 				magical : 120000
 			}
+		},
+		3048 : {
+			1000 : {
+				physical : 0,
+				magical : 0
+			},
+			2000 : {
+				physical : 0,
+				magical : 0
+			},
+			3000 : {
+				physical : 20000,
+				magical : 20000
+			},
+			4000 : {
+				physical : 20000,
+				magical : 20000
+			},
+			5000 : {
+				physical : 20000,
+				magical : 20000
+			}
 		}
 	}
 	
