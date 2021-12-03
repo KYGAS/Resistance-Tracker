@@ -1,7 +1,7 @@
 module.exports = function Tracker(mod) {
 	
 //-------------- mod stuff
-	mod.dispatch.addOpcode('S_NPC_RESISTANCE',   20354)
+	mod.dispatch.addOpcode('S_NPC_RESISTANCE',   36067)
 	mod.dispatch.addDefinition('S_NPC_RESISTANCE', 1, [
 	  ['gameId', 'uint64'],
 	  ['physicalResistance', 'int32'],
@@ -138,12 +138,20 @@ module.exports = function Tracker(mod) {
 				physical : 20000,
 				magical : 20000
 			}
+		},
+		3108 : {
+			1000 : {
+				physical : 120000,
+				magical : 120000
+			}
 		}
 	}
 	
 	
-	if(mod.dispatch.connection.metadata.protocolVersion != 384821){
+	if(mod.dispatch.connection.metadata.protocolVersion != 386769 ){
 		console.log('Module is not updated. It will not load. Contact : KYGAS#8575');
+		console.log('Bye!');
+		console.error('Bye!');
 		console.error('Module is not updated. It will not load. Contact : KYGAS#8575');
 		return;
 	}
