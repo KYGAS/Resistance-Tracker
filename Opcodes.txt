@@ -1,2 +1,0 @@
-protocol.385362.map
-	S_NPC_RESISTANCE 38899
