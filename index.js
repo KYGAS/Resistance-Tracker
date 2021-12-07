@@ -303,6 +303,30 @@ module.exports = function Tracker(mod) {
 				magicalResistance : 10000 * event.stacks
 			}
 		}
+		if(event.id == 31083060){
+			if(!abnormalModifiers[event.target]){
+				abnormalModifiers[event.target] = {};
+			}
+			if(!abnormalModifiers[event.target][event.id]){
+				abnormalModifiers[event.target][event.id] = {};
+			}
+			abnormalModifiers[event.target][event.id] = {
+				magicalResistance : 10000 * event.stacks,
+				physicalResistance: -5000 * event.stacks
+			}
+		}
+		if(event.id == 31083061){
+			if(!abnormalModifiers[event.target]){
+				abnormalModifiers[event.target] = {};
+			}
+			if(!abnormalModifiers[event.target][event.id]){
+				abnormalModifiers[event.target][event.id] = {};
+			}
+			abnormalModifiers[event.target][event.id] = {
+				physicalResistance: 10000 * event.stacks,
+				magicalResistance : -5000 * event.stacks
+			}
+		}
 		if(event.id == 99003800){
 			if(!abnormalModifiers[event.target]){
 				abnormalModifiers[event.target] = {};
@@ -327,6 +351,30 @@ module.exports = function Tracker(mod) {
 			abnormalModifiers[event.target][event.id] = {
 				physicalResistance : -94 * event.stacks,
 				magicalResistance : -94 * event.stacks
+			}
+		}
+		if(event.id == 31083060){
+			if(!abnormalModifiers[event.target]){
+				abnormalModifiers[event.target] = {};
+			}
+			if(!abnormalModifiers[event.target][event.id]){
+				abnormalModifiers[event.target][event.id] = {};
+			}
+			abnormalModifiers[event.target][event.id] = {
+				magicalResistance : 10000 * event.stacks,
+				physicalResistance: -5000 * event.stacks
+			}
+		}
+		if(event.id == 31083061){
+			if(!abnormalModifiers[event.target]){
+				abnormalModifiers[event.target] = {};
+			}
+			if(!abnormalModifiers[event.target][event.id]){
+				abnormalModifiers[event.target][event.id] = {};
+			}
+			abnormalModifiers[event.target][event.id] = {
+				physicalResistance: 10000 * event.stacks,
+				magicalResistance : -5000 * event.stacks
 			}
 		}
 		if(event.id == 99003900){
