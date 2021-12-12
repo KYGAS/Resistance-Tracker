@@ -186,14 +186,14 @@ module.exports = function Tracker(mod) {
 							break;
 						case '2':
 						case "prediction":
-							mod.settings.mode = 'prediciton';
-							command.message("Using prediciton mode for resistances.");
+							mod.settings.mode = 'prediction';
+							command.message("Using prediction mode for resistances.");
 							break;
 						case '3':
 						case "hardcoded":
 							console.log("Hardcoded mode used by default if possible. Switching to prediction mode.");
 							command.message("Hardcoded mode used by default if possible. Switching to prediction mode.");
-							command.exec('resistances mode predictiton');
+							command.exec('resistances mode prediction');
 							break;
 						default:
 							command.message("Currently existing modes :");
@@ -212,7 +212,7 @@ module.exports = function Tracker(mod) {
 					command.message("Invalid argument:");
 					command.message("1) mode");
 					command.message("1) a) accurate ");
-					command.message("1) b) prediciton");
+					command.message("1) b) prediction");
 					command.message("1) a) hardcoded");
 					command.message("2) delay VALUE");
 					break;
@@ -220,6 +220,7 @@ module.exports = function Tracker(mod) {
 		}
 	})
 	
+	if( !['prediction','accurate'].includes(mod.settings.mode) ) command.exec('resistances mode prediction');
 	
 	mod.hook('S_PLAYER_STAT_UPDATE', 17, {filter : { fake: null } }, (event) => {
 		
@@ -472,7 +473,7 @@ module.exports = function Tracker(mod) {
 	})
 	
 	mod.hook('S_NPC_RESISTANCE', 1, {filter : { fake: null } }, (event)=>{
-		if(!mod.settings.enabled || mod.settings.mode != 'prediciton' || dcResistance[event.gameId]) return;
+		if(!mod.settings.enabled || mod.settings.mode != 'prediction' || dcResistance[event.gameId]) return;
 		
 		let physicalResistance = event.physicalResistance;
 		let magicalResistance = event.magicalResistance;
