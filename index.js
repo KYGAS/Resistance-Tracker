@@ -1,159 +1,614 @@
 module.exports = function Tracker(mod) {
 	
 //-------------- mod stuff
-	mod.dispatch.addOpcode('S_NPC_RESISTANCE',   36067)
-	mod.dispatch.addDefinition('S_NPC_RESISTANCE', 1, [
-	  ['gameId', 'uint64'],
-	  ['physicalResistance', 'int32'],
-	  ['magicalResistance', 'int32']
-	], true)
+	let resistanceDC = {};
 	
-	let resistanceDC = {
-		3023 : {
-			1000 : {
-				physical : 60000,
-				magical : 60000
-			},
-			2000 : {
-				physical : 60000,
-				magical : 60000
+	switch(mod.dispatch.connection.metadata.protocolVersion){
+		case 386769:
+			mod.dispatch.addOpcode('S_NPC_RESISTANCE',   36067)
+			mod.dispatch.addDefinition('S_NPC_RESISTANCE', 1, [
+				['gameId', 'uint64'],
+				['physicalResistance', 'int32'],
+				['magicalResistance', 'int32']
+			], true)
+			resistanceDC = {
+					3023 : {
+						1000 : {
+							physical : 60000,
+							magical : 60000
+						},
+						2000 : {
+							physical : 60000,
+							magical : 60000
+						}
+					},
+					811 : {
+						81101 : {
+							physical : 60000,
+							magical : 60000
+						},
+						81102 : {
+							physical : 60000,
+							magical : 60000
+						}
+					},
+					780 : {
+						1000 : {
+							physical : 70000,
+							magical : 70000
+						},
+						2000 : {
+							physical : 70000,
+							magical : 70000
+						},
+						3000 : {
+							physical : 70000,
+							magical : 70000
+						}
+					},
+					3102 : {
+						1000 : {
+							physical : 70000,
+							magical : 70000
+						}
+					},
+					3041 : {
+						2000 : {
+							physical : 90000,
+							magical : 90000
+						}
+					},
+					982 : {
+						1000 : {
+							physical : 78000,
+							magical : 78000
+						},
+						2000 : {
+							physical : 78000,
+							magical : 78000
+						},
+						3000 : {
+							physical : 78000,
+							magical : 78000
+						}
+					},
+					3105 : {
+						1000 : {
+							physical : 78000,
+							magical : 78000
+						}
+					},
+					3104 : {
+						1000 : {
+							physical : 90000,
+							magical : 90000
+						}
+					},
+					3044 : {
+						2000 : {
+							physical : 78000,
+							magical : 78000
+						}
+					},
+					444 : {
+						2000 : {
+							physical : 92500,
+							magical : 92500
+						}
+					},
+					3205 : {
+						1000 : {
+							physical : 92500,
+							magical : 92500
+						}
+					},
+					3036 : {
+						1000 : {
+							physical : 92500,
+							magical : 92500
+						}
+					},
+					3107 : {
+						1000 : {
+							physical : 90000,
+							magical : 90000
+						}
+					},
+					3126 : {
+						1000 : {
+							physical : 120000,
+							magical : 120000
+						}
+					},
+					3048 : {
+						1000 : {
+							physical : 0,
+							magical : 0
+						},
+						2000 : {
+							physical : 0,
+							magical : 0
+						},
+						3000 : {
+							physical : 20000,
+							magical : 20000
+						},
+						4000 : {
+							physical : 20000,
+							magical : 20000
+						},
+						5000 : {
+							physical : 20000,
+							magical : 20000
+						}
+					},
+					3108 : {
+						1000 : {
+							physical : 120000,
+							magical : 120000
+						}
+					}
+				}
+		break;
+		case 387110:
+			mod.dispatch.addOpcode('S_NPC_RESISTANCE',   59169)
+			mod.dispatch.addDefinition('S_NPC_RESISTANCE', 1, [
+				['gameId', 'uint64'],
+				['physicalResistance', 'int32'],
+				['magicalResistance', 'int32']
+			], true)
+			resistanceDC = {
+				3023 : {
+					1000 : {
+						physical : 60000,
+						magical : 60000
+					},
+					2000 : {
+						physical : 60000,
+						magical : 60000
+					}
+				},
+				811 : {
+					81101 : {
+						physical : 60000,
+						magical : 60000
+					},
+					81102 : {
+						physical : 60000,
+						magical : 60000
+					}
+				},
+				780 : {
+					1000 : {
+						physical : 70000,
+						magical : 70000
+					},
+					2000 : {
+						physical : 70000,
+						magical : 70000
+					},
+					3000 : {
+						physical : 70000,
+						magical : 70000
+					}
+				},
+				3102 : {
+					1000 : {
+						physical : 70000,
+						magical : 70000
+					}
+				},
+				3041 : {
+					2000 : {
+						physical : 90000,
+						magical : 90000
+					}
+				},
+				982 : {
+					1000 : {
+						physical : 78000,
+						magical : 78000
+					},
+					2000 : {
+						physical : 78000,
+						magical : 78000
+					},
+					3000 : {
+						physical : 78000,
+						magical : 78000
+					}
+				},
+				3105 : {
+					1000 : {
+						physical : 92500,
+						magical : 92500
+					}
+				},
+				3104 : {
+					1000 : {
+						physical : 90000,
+						magical : 90000
+					}
+				},
+				3044 : {
+					2000 : {
+						physical : 78000,
+						magical : 78000
+					}
+				},
+				444 : {
+					2000 : {
+						physical : 92500,
+						magical : 92500
+					}
+				},
+				3205 : {
+					1000 : {
+						physical : 92500,
+						magical : 92500
+					}
+				},
+				3036 : {
+					1001 : {
+						physical : 111000,
+						magical : 111000
+					}
+				},
+				3107 : {
+					1000 : {
+						physical : 90000,
+						magical : 90000
+					}
+				},
+				3126 : {
+					1000 : {
+						physical : 120000,
+						magical : 120000
+					}
+				},
+				3048 : {
+					1000 : {
+						physical : 0,
+						magical : 0
+					},
+					2000 : {
+						physical : 0,
+						magical : 0
+					},
+					3000 : {
+						physical : 20000,
+						magical : 20000
+					},
+					4000 : {
+						physical : 20000,
+						magical : 20000
+					},
+					5000 : {
+						physical : 20000,
+						magical : 20000
+					}
+				},
+				3108 : {
+					1000 : {
+						physical : 120000,
+						magical : 120000
+					}
+				},
+				9794 : {
+					1000 : {
+						physical : 74000,
+						magical : 74000
+					},
+					2000 : {
+						physical : 74000,
+						magical : 74000
+					},
+					3000 : {
+						physical : 74000,
+						magical : 74000
+					}
+				},
+				3027 : {
+					1000 : {
+						physical : 90000,
+						magical : 90000
+					}
+				},
+				9068 : {
+					1000 : {
+						physical : 111000,
+						magical : 111000
+					},
+					2000 : {
+						physical : 111000,
+						magical : 111000
+					},
+					3000 : {
+						physical : 111000,
+						magical : 111000
+					}
+				},
+				3109 : {
+					1000 : {
+						physical : 118000,
+						magical : 118000
+					},
+					2000 : {
+						physical : 118000,
+						magical : 118000
+					}
+				},
+				3209 : {
+					1000 : {
+						physical : 129500,
+						magical : 129500
+					},
+					2000 : {
+						physical : 129500,
+						magical : 129500
+					}
+				},
+				9920 : {
+					1000 : {
+						physical : 129500,
+						magical : 129500
+					},
+					2000 : {
+						physical : 129500,
+						magical : 129500
+					},
+					3000 : {
+						physical : 129500,
+						magical : 129500
+					}
+				},
+				3047 : {
+					1000 : {
+						physical : 132000,
+						magical : 132000
+					}
+				},
+				3050 : {
+					1502 : {
+						physical : 129500,
+						magical : 129500
+					}
+				}
 			}
-		},
-		811 : {
-			81101 : {
-				physical : 60000,
-				magical : 60000
-			},
-			81102 : {
-				physical : 60000,
-				magical : 60000
+		break;
+		case 387421:
+			mod.dispatch.addOpcode('S_NPC_RESISTANCE',   52025) // update when i wake up
+			mod.dispatch.addDefinition('S_NPC_RESISTANCE', 1, [
+				['gameId', 'uint64'],
+				['physicalResistance', 'int32'],
+				['magicalResistance', 'int32']
+			], true)
+			resistanceDC = {
+				3023 : {
+					1000 : {
+						physical : 60000,
+						magical : 60000
+					},
+					2000 : {
+						physical : 60000,
+						magical : 60000
+					}
+				},
+				811 : {
+					81101 : {
+						physical : 60000,
+						magical : 60000
+					},
+					81102 : {
+						physical : 60000,
+						magical : 60000
+					}
+				},
+				780 : {
+					1000 : {
+						physical : 70000,
+						magical : 70000
+					},
+					2000 : {
+						physical : 70000,
+						magical : 70000
+					},
+					3000 : {
+						physical : 70000,
+						magical : 70000
+					}
+				},
+				3102 : {
+					1000 : {
+						physical : 70000,
+						magical : 70000
+					}
+				},
+				3041 : {
+					2000 : {
+						physical : 90000,
+						magical : 90000
+					}
+				},
+				982 : {
+					1000 : {
+						physical : 78000,
+						magical : 78000
+					},
+					2000 : {
+						physical : 78000,
+						magical : 78000
+					},
+					3000 : {
+						physical : 78000,
+						magical : 78000
+					}
+				},
+				3105 : {
+					1000 : {
+						physical : 92500,
+						magical : 92500
+					}
+				},
+				3104 : {
+					1000 : {
+						physical : 90000,
+						magical : 90000
+					}
+				},
+				3044 : {
+					2000 : {
+						physical : 78000,
+						magical : 78000
+					}
+				},
+				444 : {
+					2000 : {
+						physical : 92500,
+						magical : 92500
+					}
+				},
+				3205 : {
+					1000 : {
+						physical : 92500,
+						magical : 92500
+					}
+				},
+				3036 : {
+					1001 : {
+						physical : 111000,
+						magical : 111000
+					}
+				},
+				3107 : {
+					1000 : {
+						physical : 90000,
+						magical : 90000
+					}
+				},
+				3126 : {
+					1000 : {
+						physical : 120000,
+						magical : 120000
+					}
+				},
+				3048 : {
+					1000 : {
+						physical : 0,
+						magical : 0
+					},
+					2000 : {
+						physical : 0,
+						magical : 0
+					},
+					3000 : {
+						physical : 20000,
+						magical : 20000
+					},
+					4000 : {
+						physical : 20000,
+						magical : 20000
+					},
+					5000 : {
+						physical : 20000,
+						magical : 20000
+					}
+				},
+				3108 : {
+					1000 : {
+						physical : 120000,
+						magical : 120000
+					}
+				},
+				9794 : {
+					1000 : {
+						physical : 74000,
+						magical : 74000
+					},
+					2000 : {
+						physical : 74000,
+						magical : 74000
+					},
+					3000 : {
+						physical : 74000,
+						magical : 74000
+					}
+				},
+				3027 : {
+					1000 : {
+						physical : 90000,
+						magical : 90000
+					}
+				},
+				9068 : {
+					1000 : {
+						physical : 111000,
+						magical : 111000
+					},
+					2000 : {
+						physical : 111000,
+						magical : 111000
+					},
+					3000 : {
+						physical : 111000,
+						magical : 111000
+					}
+				},
+				3109 : {
+					1000 : {
+						physical : 118000,
+						magical : 118000
+					},
+					2000 : {
+						physical : 118000,
+						magical : 118000
+					}
+				},
+				3209 : {
+					1000 : {
+						physical : 129500,
+						magical : 129500
+					},
+					2000 : {
+						physical : 129500,
+						magical : 129500
+					}
+				},
+				9920 : {
+					1000 : {
+						physical : 129500,
+						magical : 129500
+					},
+					2000 : {
+						physical : 129500,
+						magical : 129500
+					},
+					3000 : {
+						physical : 129500,
+						magical : 129500
+					}
+				},
+				3047 : {
+					1000 : {
+						physical : 132000,
+						magical : 132000
+					}
+				},
+				3050 : {
+					1502 : {
+						physical : 129500,
+						magical : 129500
+					}
+				}
 			}
-		},
-		780 : {
-			1000 : {
-				physical : 70000,
-				magical : 70000
-			},
-			2000 : {
-				physical : 70000,
-				magical : 70000
-			},
-			3000 : {
-				physical : 70000,
-				magical : 70000
-			}
-		},
-		3102 : {
-			1000 : {
-				physical : 70000,
-				magical : 70000
-			}
-		},
-		3041 : {
-			2000 : {
-				physical : 90000,
-				magical : 90000
-			}
-		},
-		982 : {
-			1000 : {
-				physical : 78000,
-				magical : 78000
-			},
-			2000 : {
-				physical : 78000,
-				magical : 78000
-			},
-			3000 : {
-				physical : 78000,
-				magical : 78000
-			}
-		},
-		3105 : {
-			1000 : {
-				physical : 78000,
-				magical : 78000
-			}
-		},
-		3104 : {
-			1000 : {
-				physical : 90000,
-				magical : 90000
-			}
-		},
-		3044 : {
-			2000 : {
-				physical : 78000,
-				magical : 78000
-			}
-		},
-		444 : {
-			2000 : {
-				physical : 92500,
-				magical : 92500
-			}
-		},
-		3205 : {
-			1000 : {
-				physical : 92500,
-				magical : 92500
-			}
-		},
-		3036 : {
-			1000 : {
-				physical : 92500,
-				magical : 92500
-			}
-		},
-		3107 : {
-			1000 : {
-				physical : 90000,
-				magical : 90000
-			}
-		},
-		3126 : {
-			1000 : {
-				physical : 120000,
-				magical : 120000
-			}
-		},
-		3048 : {
-			1000 : {
-				physical : 0,
-				magical : 0
-			},
-			2000 : {
-				physical : 0,
-				magical : 0
-			},
-			3000 : {
-				physical : 20000,
-				magical : 20000
-			},
-			4000 : {
-				physical : 20000,
-				magical : 20000
-			},
-			5000 : {
-				physical : 20000,
-				magical : 20000
-			}
-		},
-		3108 : {
-			1000 : {
-				physical : 120000,
-				magical : 120000
-			}
-		}
-	}
-	
-	
-	if(mod.dispatch.connection.metadata.protocolVersion != 386769 ){
-		console.log('Module is not updated. It will not load. Contact : KYGAS#8575');
-		console.log('Bye!');
-		console.error('Bye!');
-		console.error('Module is not updated. It will not load. Contact : KYGAS#8575');
-		return;
+		break;
+		default:
+			console.log('Module is not updated. It will not load. Contact : KYGAS#8575');
+			console.log('Bye!');
+			console.error('Bye!');
+			console.error('Module is not updated. It will not load. Contact : KYGAS#8575');
+			return;
+		break;
 	}
 	
 //--------------
