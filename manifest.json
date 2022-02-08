@@ -14,7 +14,7 @@
         "S_ABNORMALITY_TOOLTIP_VALUE": 1,
         "S_BOSS_GAGE_INFO": 3,
         "S_LOAD_TOPO": "raw",
-        "S_NPC_RESISTANCE": [1,20354,36067,38899],
+        "S_NPC_RESISTANCE": [1,20354,36067,38899,52025,59169],
         "S_PLAYER_STAT_UPDATE": 17
     }
 }
