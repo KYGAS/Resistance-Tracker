@@ -520,7 +520,7 @@ module.exports = function Tracker(mod) {
 						magical : 120000
 					}
 				},
-				9794 : {
+				794 : {
 					1000 : {
 						physical : 74000,
 						magical : 74000
@@ -540,7 +540,7 @@ module.exports = function Tracker(mod) {
 						magical : 90000
 					}
 				},
-				9068 : {
+				468 : {
 					1000 : {
 						physical : 111000,
 						magical : 111000
@@ -574,7 +574,7 @@ module.exports = function Tracker(mod) {
 						magical : 129500
 					}
 				},
-				9920 : {
+				920 : {
 					1000 : {
 						physical : 129500,
 						magical : 129500
@@ -746,7 +746,7 @@ module.exports = function Tracker(mod) {
 						magical : 120000
 					}
 				},
-				9794 : {
+				794 : {
 					1000 : {
 						physical : 74000,
 						magical : 74000
@@ -766,7 +766,7 @@ module.exports = function Tracker(mod) {
 						magical : 90000
 					}
 				},
-				9068 : {
+				468 : {
 					1000 : {
 						physical : 111000,
 						magical : 111000
@@ -800,7 +800,7 @@ module.exports = function Tracker(mod) {
 						magical : 129500
 					}
 				},
-				9920 : {
+				920 : {
 					1000 : {
 						physical : 129500,
 						magical : 129500
