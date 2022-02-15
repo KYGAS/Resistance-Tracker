@@ -479,6 +479,10 @@ module.exports = function Tracker(mod) {
 					}
 				},
 				3036 : {
+					1000 : {
+						physical : 111000,
+						magical : 111000
+					},
 					1001 : {
 						physical : 111000,
 						magical : 111000
