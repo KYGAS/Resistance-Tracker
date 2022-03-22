@@ -836,7 +836,7 @@ module.exports = function Tracker(mod) {
 				}
 			}
 		break;
-		case 387421:
+		case 387463:
 			mod.dispatch.addOpcode('S_NPC_RESISTANCE',   59389) // update when i wake up
 			mod.dispatch.addDefinition('S_NPC_RESISTANCE', 1, [
 				['gameId', 'uint64'],
