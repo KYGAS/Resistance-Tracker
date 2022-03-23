@@ -4,7 +4,7 @@
         "S_NPC_RESISTANCE.1.def": "6ffe0e0b86e04a6f94662ba43f8787f1ef3f7ad7414f49428db21d107843b108",
         "index.js": "180e0bfc475c3792cd34879b9cf5129057153b2a42989543404b4b6ba7a2b3fa",
         "module.json": "e2a52f8037278aa6ba7a5654adc602f2be8d5a3f7e3053e0d6a3b52df90f93c4",
-        "settings_migrator.js": "6c2754f4ee025142d8ee06494e2aba1f3c29bdb15fb79345eea630eeeeb8c3ae",
+        "settings_migrator.js": "6c2754f4ee025142d8ee06494e2aba1f3c29bdb15fb79345eea630eeeeb8c3ae"
     },
     "defs": {
         "C_REQUEST_ABNORMALITY_TOOLTIP_VALUE": 1,
