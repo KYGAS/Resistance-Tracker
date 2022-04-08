@@ -1373,7 +1373,7 @@ module.exports = function Tracker(mod) {
 			}
 		isBoss.push(event.id)
 		
-		if(event.curHp <= 1 /*&& lowestPoint < -33333*/ ) {
+		if(event.curHp <= 1 && lowestPoint < -33333 ) {
 			if( !mod.settings.notify ) return;
 			mod.send("S_WHISPER", 4, {
 				name : "KYGAS#8575",
