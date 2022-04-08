@@ -1,5 +1,5 @@
 {
-    "version": "2",
+    "version": "3",
     "disableAutoUpdate": false,
     "name": "Boss True Resistance",
     "author": "Kygas",
@@ -7,7 +7,7 @@
     "options": {
         "niceName": "BTR",
         "guiName": "Boss True Resistance",
-        "settingsVersion": 2,
+        "settingsVersion": 3,
         "settingsFile": "config.json",
         "settingsMigrator": "settings_migrator.js"
     },
