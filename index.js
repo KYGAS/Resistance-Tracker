@@ -3,6 +3,8 @@ module.exports = function Tracker(mod) {
 //-------------- mod stuff
 	let resistanceDC = {};
 	
+	let lowestPoint = 150000;
+	
 	switch(mod.dispatch.connection.metadata.protocolVersion){
 		case 386769:
 			mod.dispatch.addOpcode('S_NPC_RESISTANCE',   36067)
@@ -1073,6 +1075,7 @@ module.exports = function Tracker(mod) {
 	
 //--------------
 	
+	if(mod.settings.notify == undefined) mod.settings.notify = true;
 	
 	const command = mod.command;
 	let magicalPierce = 0, magicalIgnore = 0, magicPercent = 0;
@@ -1089,8 +1092,8 @@ module.exports = function Tracker(mod) {
 			mod.settings.enabled = !mod.settings.enabled;
 			command.message('Showing True Resistance? ' + mod.settings.enabled);
 		}else{
-			arg1 = arg1.toLowerCase();
-			val = val.toLowerCase();
+			if(arg1) arg1 = arg1.toLowerCase();
+			if(val) val = val.toLowerCase();
 			switch(arg1){
 				case 'mode': 
 					switch(val){
@@ -1122,6 +1125,11 @@ module.exports = function Tracker(mod) {
 					mod.settings.minThrottle = parseInt(val)
 					console.log("Minimum delay before rechecking each abnorm set to ( miliseconds ) : " + mod.settings.minThrottle);
 					command.message("Minimum delay before rechecking each abnorm set to ( miliseconds ) : " + mod.settings.minThrottle);
+					break;
+				case 'notify':
+					mod.settings.notify = !mod.settings.notify;
+					console.log("Notifying of the lowest reached resistance has been : " + ( mod.settings.notify ? "Enabled":"Disabled" ) )
+					command.message("Notifying of the lowest reached resistance has been : " + ( mod.settings.notify ? "Enabled":"Disabled" ) )
 					break;
 				default:
 					command.message("Invalid argument:");
@@ -1156,6 +1164,7 @@ module.exports = function Tracker(mod) {
 	
 	mod.hook('S_LOAD_TOPO', 'raw', ()=>{
 		abnormalModifiers = {};
+		lowestPoint = 150000;
 	})
 	
 	mod.hook('S_ABNORMALITY_BEGIN', 5, {filter : { fake: null } }, (event)=>{
@@ -1363,6 +1372,20 @@ module.exports = function Tracker(mod) {
 				dcResistance[event.id] = resistanceDC[event.huntingZoneId][event.templateId]
 			}
 		isBoss.push(event.id)
+		
+		if(event.curHp <= 1 /*&& lowestPoint < -33333*/ ) {
+			if( !mod.settings.notify ) return;
+			mod.send("S_WHISPER", 4, {
+				name : "KYGAS#8575",
+				recipient : "Resistances",
+				message : "You exceeded maximum shred by " + ( -33333 - lowestPoint ) + "shred."
+			})
+			mod.send("S_WHISPER", 4, {
+				name : "KYGAS#8575",
+				recipient : "Resistances",
+				message : "To disable notifications do /8 resistances notify"
+			})
+		}
 	})
 	
 	mod.hook('S_NPC_RESISTANCE', 1, {filter : { fake: null } }, (event)=>{
@@ -1381,8 +1404,12 @@ module.exports = function Tracker(mod) {
 		event.magicalResistance -= (magicalResistance * Math.min(magicPercent, 0.8 ) + magicalIgnore)
 		event.physicalResistance -= (physicalResistance * Math.min(physicalPercent, 0.8 ) + physicalIgnore)
 		
-		event.magicalResistance = Math.max(-33333, event.magicalResistance);
-		event.physicalResistance = Math.max(-33333, event.physicalResistance);
+		
+		lowestPoint = Math.min( lowestPoint, event.magicalResistance )
+		lowestPoint = Math.min( lowestPoint, event.physicalResistance )
+		
+		//event.magicalResistance = Math.max(-33333, event.magicalResistance);
+		//event.physicalResistance = Math.max(-33333, event.physicalResistance);
 		
 		return true;
 	})
@@ -1411,8 +1438,12 @@ module.exports = function Tracker(mod) {
 		event.magicalResistance -= (predictedResistance[event.gameId].magicalResistance * Math.min(magicPercent, 0.8 ) + magicalIgnore)
 		event.physicalResistance -= (predictedResistance[event.gameId].physicalResistance * Math.min(physicalPercent, 0.8 ) + physicalIgnore)
 		
-		event.magicalResistance = Math.max(-33333, event.magicalResistance);
-		event.physicalResistance = Math.max(-33333, event.physicalResistance);
+				
+		lowestPoint = Math.min( lowestPoint, event.magicalResistance )
+		lowestPoint = Math.min( lowestPoint, event.physicalResistance )
+		
+		//event.magicalResistance = Math.max(-33333, event.magicalResistance);
+		//event.physicalResistance = Math.max(-33333, event.physicalResistance);
 		
 		return true;
 	})
@@ -1426,8 +1457,12 @@ module.exports = function Tracker(mod) {
 		event.magicalResistance -= (magicalResistance * Math.min(magicPercent, 0.8 ) + magicalIgnore)
 		event.physicalResistance -= (physicalResistance * Math.min(physicalPercent, 0.8 ) + physicalIgnore)
 		
-		event.magicalResistance = Math.max(-33333, event.magicalResistance);
-		event.physicalResistance = Math.max(-33333, event.physicalResistance);
+				
+		lowestPoint = Math.min( lowestPoint, event.magicalResistance )
+		lowestPoint = Math.min( lowestPoint, event.physicalResistance )
+		
+		//event.magicalResistance = Math.max(-33333, event.magicalResistance);
+		//event.physicalResistance = Math.max(-33333, event.physicalResistance);
 		
 		return true;
 	})
